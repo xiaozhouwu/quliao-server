@@ -7,7 +7,7 @@ const dbUrl = "mongodb://localhost:27017/quliao";
 const app = new Koa();
 const http = Server(app.callback());
 const io = require("socket.io")(http);
-const listenSocket = require("./sockets");
+const listenSocket = require("./app/sockets");
 
 mongoose.Promise = global.Promise;
 mongoose.connection.openUri(dbUrl);
