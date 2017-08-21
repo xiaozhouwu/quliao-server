@@ -15,10 +15,24 @@ const RoomSchema = new Schema({
     type: ObjectId,
     ref: "User",
   }],
-  createAt: {
-    type: Date,
-    default: Date.now(),
+  meta: {
+    cteateAt: {
+      type: Date,
+      default: Date.now(),
+    },
+    updateAt: {
+      type: Date,
+      default: Date.now(),
+    },
   },
+});
+
+RoomSchema.pre("save", next => {
+  if (this.isNew) {
+    this.meta.cteateAt = Date.now();
+  }
+  this.meta.updateAt = Date.now();
+  next();
 });
 
 module.exports = RoomSchema;

@@ -33,4 +33,12 @@ const UserSchema = new Schema({
   },
 });
 
+UserSchema.pre("save", next => {
+  if (this.isNew) {
+    this.meta.cteateAt = Date.now();
+  }
+  this.meta.updateAt = Date.now();
+  next();
+});
+
 module.exports = UserSchema;
