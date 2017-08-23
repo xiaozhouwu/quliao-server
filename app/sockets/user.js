@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const Room = require("../models/room");
 
@@ -22,7 +23,7 @@ function userSocket(socket) {
         msg: "邮箱已存在",
       });
     } else {
-      const hashSignupPwd = await bcrypt.hash(signupPwd, 10);
+      const hashSignupPwd = bcrypt.hashSync(signupPwd, 10);
       const publicRoom = await Room.findOne({ name: "公共聊天室" });
       const {
         _id,
@@ -41,11 +42,31 @@ function userSocket(socket) {
     }
   });
 
-  socket.on("login", async msg => {
+  socket.on("login", async (msg, cb) => {
     const {
       loginEmail,
       loginPwd,
     } = msg;
+    const user = await User.findOne({ email: loginEmail });
+    if (!user) {
+      cb({
+        status: 1,
+        msg: "该用户不存在",
+      });
+    } else {
+      const {
+        password,
+      } = user;
+      const result = bcrypt.compareSync(loginPwd, password);
+      if (result) {
+        cb("登录成功");
+      } else {
+        cb({
+          status: 1,
+          msg: "登录失败",
+        });
+      }
+    }
   });
 }
 
