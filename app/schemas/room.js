@@ -27,7 +27,7 @@ const RoomSchema = new Schema({
   },
 });
 
-RoomSchema.pre("save", next => {
+RoomSchema.pre("save", function (next) {
   if (this.isNew) {
     this.meta.cteateAt = Date.now();
   }

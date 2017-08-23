@@ -19,7 +19,7 @@ const UserSchema = new Schema({
   }],
   avatar: {
     type: String,
-    default: "",
+    default: "http://note.youdao.com/yws/public/resource/14483e8d68e2d48dc17f6bcd78c6b1c5/xmlnote/23FF68DBF0374E778E8A33DEEF2F0B9F/19694",
   },
   meta: {
     cteateAt: {
@@ -33,7 +33,7 @@ const UserSchema = new Schema({
   },
 });
 
-UserSchema.pre("save", next => {
+UserSchema.pre("save", function (next) {
   if (this.isNew) {
     this.meta.cteateAt = Date.now();
   }
