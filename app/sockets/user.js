@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 const Room = require("../models/room");
 
@@ -21,6 +22,7 @@ function userSocket(socket) {
         msg: "邮箱已存在",
       });
     } else {
+      const hashSignupPwd = await bcrypt.hash(signupPwd, 10);
       const publicRoom = await Room.findOne({ name: "公共聊天室" });
       const {
         _id,
@@ -28,6 +30,7 @@ function userSocket(socket) {
       const _user = new User({
         name: signupName,
         email: signupEmail,
+        password: hashSignupPwd,
         joinedRooms: [_id],
       });
       const user = await _user.save();
