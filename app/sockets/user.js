@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { secret } = require("../../config/jwt");
 const User = require("../models/user");
 const Room = require("../models/room");
 
@@ -55,11 +56,22 @@ function userSocket(socket) {
       });
     } else {
       const {
+        name,
+        email,
         password,
       } = user;
       const result = bcrypt.compareSync(loginPwd, password);
       if (result) {
-        cb("登录成功");
+        const payload = {
+          name,
+          email,
+        };
+        const token = jwt.sign(payload, secret, { expiresIn: 2 * 24 * 60 * 60 });
+        cb({
+          status: 0,
+          msg: "登录成功",
+          token,
+        });
       } else {
         cb({
           status: 1,
