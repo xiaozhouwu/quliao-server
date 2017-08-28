@@ -1,5 +1,5 @@
-const secret = "quliao";
+const SECRET = "quliao";
 
 module.exports = {
-  secret,
+  SECRET,
 };

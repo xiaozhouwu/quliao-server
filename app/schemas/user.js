@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const {
+  DEFAULT_USER_AVATAR,
+} = require("../../config/app");
 
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
@@ -6,12 +9,15 @@ const ObjectId = Schema.Types.ObjectId;
 const UserSchema = new Schema({
   name: {
     type: String,
+    require: true,
   },
   email: {
     type: String,
+    require: true,
   },
   password: {
     type: String,
+    require: true,
   },
   joinedRooms: [{
     type: ObjectId,
@@ -19,7 +25,7 @@ const UserSchema = new Schema({
   }],
   avatar: {
     type: String,
-    default: "http://note.youdao.com/yws/public/resource/14483e8d68e2d48dc17f6bcd78c6b1c5/xmlnote/23FF68DBF0374E778E8A33DEEF2F0B9F/19694",
+    default: DEFAULT_USER_AVATAR,
   },
   meta: {
     cteateAt: {
