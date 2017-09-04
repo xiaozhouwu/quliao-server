@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
 const MessageSchema = new Schema({
-  user: {
+  from: {
     type: ObjectId,
     ref: "User",
   },
@@ -16,9 +16,14 @@ const MessageSchema = new Schema({
     type: String,
   },
   cteateAt: {
-    type: Date,
+    type: Number,
     default: Date.now(),
   },
+});
+
+MessageSchema.pre("save", function (next) {
+  this.cteateAt = Date.now();
+  next();
 });
 
 module.exports = MessageSchema;

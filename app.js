@@ -6,7 +6,6 @@ const bodyParser = require("koa-bodyparser");
 const Router = require("koa-router");
 const apiRouter = require("./routes");
 const listenSocket = require("./app/sockets");
-const verifyToken = require("./app/verify");
 
 const port = process.env.PORT || 1337;
 const {
@@ -22,18 +21,6 @@ app.use(router.routes(), router.allowedMethods());
 
 const http = Server(app.callback());
 const io = require("socket.io")(http);
-
-io.use(async (socket, next) => {
-  try {
-    const token = socket.handshake.query.token;
-    const user = await verifyToken(token);
-    socket.user = user;
-    return next();
-  } catch (error) {
-    next(new Error(error));
-    socket.disconnect(true);
-  }
-});
 
 mongoose.Promise = global.Promise;
 mongoose.connection.openUri(dbUrl);

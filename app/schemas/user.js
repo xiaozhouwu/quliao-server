@@ -27,13 +27,16 @@ const UserSchema = new Schema({
     type: String,
     default: DEFAULT_USER_AVATAR,
   },
+  city: {
+    type: String,
+  },
   meta: {
     cteateAt: {
-      type: Date,
+      type: Number,
       default: Date.now(),
     },
     updateAt: {
-      type: Date,
+      type: Number,
       default: Date.now(),
     },
   },

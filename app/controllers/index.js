@@ -17,6 +17,7 @@ exports.login = async (ctx, next) => {
     };
   } else {
     const {
+      _id,
       name,
       email,
       password,
@@ -24,6 +25,7 @@ exports.login = async (ctx, next) => {
     const result = bcrypt.compareSync(loginPwd, password);
     if (result) {
       const payload = {
+        _id,
         name,
         email,
       };

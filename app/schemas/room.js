@@ -25,11 +25,11 @@ const RoomSchema = new Schema({
   }],
   meta: {
     cteateAt: {
-      type: Date,
+      type: Number,
       default: Date.now(),
     },
     updateAt: {
-      type: Date,
+      type: Number,
       default: Date.now(),
     },
   },

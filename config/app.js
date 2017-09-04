@@ -1,5 +1,5 @@
-const DEFAULT_USER_AVATAR = "http://note.youdao.com/yws/public/resource/14483e8d68e2d48dc17f6bcd78c6b1c5/xmlnote/23FF68DBF0374E778E8A33DEEF2F0B9F/19694";
-const DEFAULT_GROUP_AVATAR = "http://note.youdao.com/yws/public/resource/14483e8d68e2d48dc17f6bcd78c6b1c5/xmlnote/DBD77EBA7F2C4A429035667D966AB2E6/20043";
+const DEFAULT_USER_AVATAR = "http://note.youdao.com/yws/public/resource/14483e8d68e2d48dc17f6bcd78c6b1c5/xmlnote/B71C0CAA08B44A62859E46CCD8A04459/20285";
+const DEFAULT_GROUP_AVATAR = "http://note.youdao.com/yws/public/resource/14483e8d68e2d48dc17f6bcd78c6b1c5/xmlnote/F8C4C3C0EAAE4E8E97CEE9D224DA9B37/20287";
 
 module.exports = {
   DEFAULT_USER_AVATAR,

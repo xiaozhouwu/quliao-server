@@ -1,13 +1,15 @@
 const messageSocket = require("./message");
 const roomSocket = require("./room");
 const userSocket = require("./user");
+const { verifyToken } = require("./middleware");
 
 function listenSocket(io) {
   io.on("connection", (socket) => {
     console.log("a user connected");
-    messageSocket(socket);
-    roomSocket(socket);
-    userSocket(socket);
+    socket.use(verifyToken);
+    messageSocket(socket, io);
+    roomSocket(socket, io);
+    userSocket(socket, io);
   });
 }
 
