@@ -1,7 +1,7 @@
 const Message = require("../models/message");
 
 function messageSocket(socket, io) {
-  socket.on("message", async (msg, cb) => {
+  socket.on("new message", async (msg, cb) => {
     const {
       roomId,
       content,
@@ -23,7 +23,7 @@ function messageSocket(socket, io) {
         password: 0,
       },
     });
-    io.to(roomId).emit("newMessage", newMessage);
+    io.to(roomId).emit("new message", newMessage);
     cb({
       status: 0,
       msg: "发送成功",

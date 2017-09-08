@@ -30,6 +30,9 @@ const UserSchema = new Schema({
   city: {
     type: String,
   },
+  motto: {
+    type: String,
+  },
   meta: {
     cteateAt: {
       type: Number,

@@ -11,13 +11,19 @@ const RoomSchema = new Schema({
     type: String,
     require: true,
   },
-  owner: {
-    type: ObjectId,
-    ref: "User",
-  },
   avatar: {
     type: String,
     default: DEFAULT_GROUP_AVATAR,
+  },
+  desc: {
+    type: String,
+  },
+  declare: {
+    type: String,
+  },
+  owner: {
+    type: ObjectId,
+    ref: "User",
   },
   members: [{
     type: ObjectId,
