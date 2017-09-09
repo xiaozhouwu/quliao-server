@@ -30,7 +30,7 @@ const RoomSchema = new Schema({
     ref: "User",
   }],
   meta: {
-    cteateAt: {
+    createAt: {
       type: Number,
       default: Date.now(),
     },
@@ -43,7 +43,7 @@ const RoomSchema = new Schema({
 
 RoomSchema.pre("save", function (next) {
   if (this.isNew) {
-    this.meta.cteateAt = Date.now();
+    this.meta.createAt = Date.now();
   }
   this.meta.updateAt = Date.now();
   next();

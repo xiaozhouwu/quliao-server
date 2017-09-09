@@ -38,6 +38,12 @@ function roomSocket(socket, io) {
           msg: "修改成功",
         });
       }
+    } else {
+      cb({
+        status: 2,
+        msg: "发送失败",
+        error: "token错误",
+      });
     }
   });
 
@@ -71,6 +77,12 @@ function roomSocket(socket, io) {
         },
       ]);
       cb(newRoom);
+    } else {
+      cb({
+        status: 2,
+        msg: "发送失败",
+        error: "token错误",
+      });
     }
   });
 
@@ -83,38 +95,52 @@ function roomSocket(socket, io) {
       } = msg;
       const rooms = await Room.find({ name: new RegExp(name, "i") });
       cb(rooms);
+    } else {
+      cb({
+        status: 2,
+        msg: "发送失败",
+        error: "token错误",
+      });
     }
   });
 
   socket.on("add room member", async (msg, cb) => {
-    const {
-      decoded: {
-        _id: userId,
-      },
-      data: {
+    if (!msg.error) {
+      const {
+        decoded: {
+          _id: userId,
+        },
+        data: {
+          roomId,
+        },
+      } = msg;
+      const user = await User.findByIdAndUpdate(userId, {
+        $push: {
+          joinedRooms: roomId,
+        },
+      }, {
+        new: true,
+        fields: {
+          password: 0,
+        },
+      });
+      await Room.findByIdAndUpdate(roomId, { $push: { menbers: userId } });
+      socket.join(roomId);
+      socket.broadcast.to(roomId).emit("add room member", {
         roomId,
-      },
-    } = msg;
-    const user = await User.findByIdAndUpdate(userId, {
-      $push: {
-        joinedRooms: roomId,
-      },
-    }, {
-      new: true,
-      fields: {
-        password: 0,
-      },
-    });
-    await Room.findByIdAndUpdate(roomId, { $push: { menbers: userId } });
-    socket.join(roomId);
-    socket.broadcast.to(roomId).emit("add room member", {
-      roomId,
-      user,
-    });
-    cb({
-      roomId,
-      user,
-    });
+        user,
+      });
+      cb({
+        roomId,
+        user,
+      });
+    } else {
+      cb({
+        status: 2,
+        msg: "发送失败",
+        error: "token错误",
+      });
+    }
   });
 
   socket.on("remove room", async (msg) => {
@@ -164,6 +190,12 @@ function roomSocket(socket, io) {
       cb({
         status: 0,
         msg: "操作成功",
+      });
+    } else {
+      cb({
+        status: 2,
+        msg: "发送失败",
+        error: "token错误",
       });
     }
   });

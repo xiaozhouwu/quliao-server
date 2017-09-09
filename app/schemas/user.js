@@ -34,7 +34,7 @@ const UserSchema = new Schema({
     type: String,
   },
   meta: {
-    cteateAt: {
+    createAt: {
       type: Number,
       default: Date.now(),
     },
@@ -47,7 +47,7 @@ const UserSchema = new Schema({
 
 UserSchema.pre("save", function (next) {
   if (this.isNew) {
-    this.meta.cteateAt = Date.now();
+    this.meta.createAt = Date.now();
   }
   this.meta.updateAt = Date.now();
   next();

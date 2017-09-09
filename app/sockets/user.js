@@ -30,6 +30,12 @@ function userSocket(socket, io) {
       } = user;
       joinedRooms.forEach(({ _id }) => socket.join(_id));
       cb(user);
+    } else {
+      cb({
+        status: 2,
+        msg: "发送失败",
+        error: "token错误",
+      });
     }
   });
 
@@ -58,6 +64,12 @@ function userSocket(socket, io) {
         meta,
         avatar,
         motto,
+      });
+    } else {
+      cb({
+        status: 2,
+        msg: "发送失败",
+        error: "token错误",
       });
     }
   });

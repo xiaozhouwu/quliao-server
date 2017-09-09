@@ -15,14 +15,14 @@ const MessageSchema = new Schema({
   content: {
     type: String,
   },
-  cteateAt: {
+  createAt: {
     type: Number,
     default: Date.now(),
   },
 });
 
 MessageSchema.pre("save", function (next) {
-  this.cteateAt = Date.now();
+  this.createAt = Date.now();
   next();
 });
 
