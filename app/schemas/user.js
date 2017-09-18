@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
-const {
-  DEFAULT_USER_AVATAR,
-} = require("../../config/app");
-
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
+const { userAvatars } = require("../../config/app");
 
 const UserSchema = new Schema({
   name: {
@@ -25,7 +22,6 @@ const UserSchema = new Schema({
   }],
   avatar: {
     type: String,
-    default: DEFAULT_USER_AVATAR,
   },
   city: {
     type: String,
@@ -48,6 +44,8 @@ const UserSchema = new Schema({
 UserSchema.pre("save", function (next) {
   if (this.isNew) {
     this.meta.createAt = Date.now();
+    const index = Math.floor(Math.random()*userAvatars.length);
+    this.avatar = userAvatars[index];
   }
   this.meta.updateAt = Date.now();
   next();

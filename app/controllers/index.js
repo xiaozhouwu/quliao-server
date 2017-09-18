@@ -9,7 +9,6 @@ exports.login = async (ctx, next) => {
     loginEmail,
     loginPwd,
   } = ctx.request.body;
-  console.log(loginEmail);
   const user = await User.findOne({ email: loginEmail });
   if (!user) {
     ctx.body = {

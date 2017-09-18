@@ -63,33 +63,42 @@ function roomSocket(socket, io) {
             _id: userId,
           },
           data,
+          data: { name },
         } = msg;
-        const roomObj = Object.assign({}, data, {
-          owner: userId,
-          members: [userId],
-        });
-        const _room = new Room(roomObj);
-        const { _id: roomId } = await _room.save();
-        socket.join(roomId);
-        await User.findByIdAndUpdate(userId, { $push: { joinedRooms: roomId } });
-        const newRoom = await Room.findById(roomId).populate([
-          {
-            path: "owner",
-            select: {
-              password: 0,
+        const roomByName = await Room.findOne({ name });
+        if (roomByName) {
+          cb({
+            status: 1,
+            msg: "用户名已存在",
+          });
+        } else {
+          const roomObj = Object.assign({}, data, {
+            owner: userId,
+            members: [userId],
+          });
+          const _room = new Room(roomObj);
+          const { _id: roomId } = await _room.save();
+          socket.join(roomId);
+          await User.findByIdAndUpdate(userId, { $push: { joinedRooms: roomId } });
+          const newRoom = await Room.findById(roomId).populate([
+            {
+              path: "owner",
+              select: {
+                password: 0,
+              },
             },
-          },
-          {
-            path: "members",
-            select: {
-              password: 0,
+            {
+              path: "members",
+              select: {
+                password: 0,
+              },
             },
-          },
-        ]);
-        cb({
-          status: 0,
-          data: newRoom,
-        });
+          ]);
+          cb({
+            status: 0,
+            data: newRoom,
+          });
+        }
       } else {
         cb({
           status: 2,
@@ -176,8 +185,11 @@ function roomSocket(socket, io) {
           user,
         });
         cb({
-          roomId,
-          user,
+          status: 0,
+          data: {
+            roomId,
+            user,
+          },
         });
       } else {
         cb({

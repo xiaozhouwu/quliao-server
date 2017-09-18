@@ -1,7 +1,15 @@
-const DEFAULT_USER_AVATAR = "http://note.youdao.com/yws/public/resource/14483e8d68e2d48dc17f6bcd78c6b1c5/xmlnote/B71C0CAA08B44A62859E46CCD8A04459/20285";
-const DEFAULT_GROUP_AVATAR = "http://note.youdao.com/yws/public/resource/14483e8d68e2d48dc17f6bcd78c6b1c5/xmlnote/F8C4C3C0EAAE4E8E97CEE9D224DA9B37/20287";
+const userAvatars = [
+  "http://touxiang.yeree.com/pics/13/963208.jpg",
+  "http://touxiang.yeree.com/pics/e3/955164.jpg",
+  "http://touxiang.yeree.com/pics/87/955165.jpg",
+  "http://touxiang.yeree.com/pics/20/955172.jpg",
+  "http://touxiang.yeree.com/pics/9c/955177.jpg",
+  "http://touxiang.yeree.com/pics/9a/955160.jpg",
+  "http://touxiang.yeree.com/pics/11/20740.jpg",
+  "http://touxiang.yeree.com/pics/88/955179.jpg",
+  "http://touxiang.yeree.com/pics/28/963211.jpg",
+];
 
 module.exports = {
-  DEFAULT_USER_AVATAR,
-  DEFAULT_GROUP_AVATAR,
+  userAvatars,
 };

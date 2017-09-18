@@ -1,8 +1,4 @@
 const mongoose = require("mongoose");
-const {
-  DEFAULT_GROUP_AVATAR,
-} = require("../../config/app");
-
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
@@ -13,7 +9,6 @@ const RoomSchema = new Schema({
   },
   avatar: {
     type: String,
-    default: DEFAULT_GROUP_AVATAR,
   },
   desc: {
     type: String,

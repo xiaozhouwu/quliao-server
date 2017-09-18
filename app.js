@@ -6,6 +6,7 @@ const bodyParser = require("koa-bodyparser");
 const Router = require("koa-router");
 const apiRouter = require("./routes");
 const listenSocket = require("./app/sockets");
+const mongoInit = require("./mongo-init");
 
 const port = process.env.PORT || 1337;
 const {
@@ -23,7 +24,8 @@ const http = Server(app.callback());
 const io = require("socket.io")(http);
 
 mongoose.Promise = global.Promise;
-mongoose.connection.openUri(dbUrl);
+const db = mongoose.connection.openUri(dbUrl);
+db.once("open", mongoInit);
 
 listenSocket(io);
 
