@@ -8,10 +8,11 @@ const apiRouter = require("./routes");
 const listenSocket = require("./app/sockets");
 const mongoInit = require("./mongo-init");
 
-const port = process.env.PORT || 1337;
+const port = process.env.PORT || 1335;
 const {
   dbUrl,
 } = require("./config/mongodb");
+
 const router = new Router();
 const app = new Koa();
 
