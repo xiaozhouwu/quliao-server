@@ -6,6 +6,7 @@ const { verifyToken } = require("./middleware");
 function listenSocket(io) {
   io.on("connection", (socket) => {
     console.log("a user connected");
+    console.log(socket)
     socket.use(verifyToken);
     messageSocket(socket, io);
     roomSocket(socket, io);

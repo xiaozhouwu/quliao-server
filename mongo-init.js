@@ -24,7 +24,7 @@ async function mongoInit() {
     const _user = new User(userObj);
     const { _id: userId } = await _user.save();
     newPublicRoom.owner = userId;
-    newPublicRoom.members.push(userId);
+    newPublicRoom.members = newPublicRoom.members.concat([userId]);
     await newPublicRoom.save();
   }
 }
